@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react"
-
-interface DataFetch {
-    data: any;
-    loading: boolean;
-    error: any
-}
+import { DataFetch } from "./interface/fetchInterface"
 
 export const useFetch = () => {
     const [data, setData] = useState<DataFetch>({
         data: [],
         loading: true,
-        error: null
+        error: null,
     })
 
     useEffect(() => {
@@ -19,12 +14,12 @@ export const useFetch = () => {
             .then(data => setData({
                 data,
                 loading: false,
-                error: null
+                error: null,
             }))
             .catch(err => setData({
                 data: [],
                 loading: false,
-                error: err
+                error: err,
             }))
     }, [])
 
