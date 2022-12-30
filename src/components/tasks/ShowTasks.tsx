@@ -1,10 +1,15 @@
 import { useFetch } from '../../hooks/useFetch';
+import { useEffect } from 'react';
 
 export const ShowTasks = () => {
 
     const { data, loading, error } = useFetch()
 
-    console.log(data)
+    const handleDelete = (_id: any) => {
+        fetch(`http://localhost:5000/tasks/${_id}/delete`)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }
 
     return (
         <>
@@ -28,7 +33,11 @@ export const ShowTasks = () => {
                                         <td>{++index}</td>
                                         <td>{title}</td>
                                         <td>{description}</td>
-                                        <td><button>Hecho</button><button>Editar</button><button>Borrar</button></td>
+                                        <td>
+                                            <button>Hecho</button>
+                                            <button>Editar</button>
+                                            <button onClick={() => handleDelete(_id)}>Borrar</button>
+                                        </td>
                                     </tr>
                                 ))
                             }

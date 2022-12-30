@@ -2,10 +2,12 @@ import { useState } from 'react';
 
 export const AddTask = () => {
 
-    const [task, setTask] = useState({
+    const initialValues = {
         title: '',
         description: '',
-    })
+    }
+
+    const [task, setTask] = useState(initialValues)
 
     const handleSubmit = () => {
         fetch('http://localhost:5000/tasks/create', {
@@ -15,6 +17,8 @@ export const AddTask = () => {
         })
             .then(res => console.log(res))
             .catch(err => console.log(err))
+
+        setTask(initialValues)
     }
 
     const handleChange = (e: any) => {
@@ -24,7 +28,6 @@ export const AddTask = () => {
             ...task, [name]: value
         })
     }
-    console.log(task)
 
     return (
         <div>
