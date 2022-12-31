@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const AddTask = () => {
+export const AddTask = ({setUpdate, update}: any) => {
 
     const initialValues = {
         title: '',
@@ -10,15 +10,20 @@ export const AddTask = () => {
     const [task, setTask] = useState(initialValues)
 
     const handleSubmit = () => {
-        fetch('http://localhost:5000/tasks/create', {
-            method: "POST",
-            body: JSON.stringify(task),
-            headers: { "Content-type": "application/json; charset=UTF-8" }
-        })
+        if (task.title && task.description) {
+
+            fetch('http://localhost:5000/tasks/create', {
+                method: "POST",
+                body: JSON.stringify(task),
+                headers: { "Content-type": "application/json; charset=UTF-8" }
+            })
             .then(res => console.log(res))
             .catch(err => console.log(err))
-
-        setTask(initialValues)
+            setTask(initialValues)
+            setUpdate(!update)
+        } else {
+            console.log('campos vacios')
+        }
     }
 
     const handleChange = (e: any) => {
